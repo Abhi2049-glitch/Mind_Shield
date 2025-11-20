@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindShield | Cyber Security</title>
+    <style>
+        /* Add this inside <style> in popup.html */
+
+@keyframes pulse {
+  0% { opacity: 0.5; transform: scale(0.98); }
+  50% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0.5; transform: scale(0.98); }
+}
+
+/* We will apply this class to the loading text in JS */
+.scanning-text {
+  color: var(--accent);
+  text-align: center;
+  margin-top: 15px;
+  animation: pulse 1.5s infinite ease-in-out;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+        :root {
+            color-scheme: dark;
+            --bg: #050608;
+            --panel: #0f131c;
+            --accent: #44f6b5; /* Matrix Green */
+            --accent-glow: rgba(68, 246, 181, 0.2);
+            --text: #e5f4ff;
+            --muted: #8a99b2;
+            --danger: #ff5f5f; /* Red for danger */
+            --warning: #facc15; /* Yellow for fear */
+            --authority: #a78bfa; /* Purple for authority */
+            --safe: #70ffb0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Segoe UI", system-ui, sans-serif; }
+
+        body {
+            width: 400px; /* Fixed width for extension */
+            min-height: 500px;
+            background: radial-gradient(circle at top, #0c1428, var(--bg) 45%);
+            color: var(--text);
+            padding: 1.5rem;
+        }
+
+        .card {
+            background: var(--panel);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 18px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45);
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Cool Glow Effect */
+        .card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% -20%, var(--accent-glow), transparent 70%);
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+        h1 span { display: block; color: var(--accent); font-size: 0.9em; }
+
+        /* The Text Input Area */
+        textarea {
+            width: 100%;
+            height: 100px;
+            background: rgba(5, 6, 8, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: #fff;
+            padding: 1rem;
+            resize: none;
+            margin-bottom: 1rem;
+            transition: border 0.2s;
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 2;
+        }
+        textarea:focus { outline: none; border-color: var(--accent); }
+
+        /* The Buttons */
+        .cta { display: flex; gap: 0.75rem; position: relative; z-index: 2; }
+        
+        button {
+            flex: 1;
+            padding: 0.8rem;
+            border-radius: 10px;
+            border: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        button:hover { transform: translateY(-2px); }
+        
+        .primary {
+            background: var(--accent);
+            color: #031710;
+            box-shadow: 0 0 15px rgba(68, 246, 181, 0.3);
+        }
+
+        /* Results Area */
+        #result { margin-top: 1.5rem; display: grid; gap: 0.8rem; position: relative; z-index: 2; }
+
+        /* Dynamic Alert Cards */
+        /* Update the existing .alert class */
+.alert {
+  /* ... keep your existing styles ... */
+  
+  /* Add these animation lines: */
+  animation: slideUp 0.4s ease-out forwards;
+  opacity: 0; /* Start invisible */
+  transform: translateY(10px); /* Start slightly lower */
+}
+
+/* Define the animation */
+@keyframes slideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Stagger effect: Makes the second card wait a bit */
+.alert:nth-child(1) { animation-delay: 0.1s; }
+.alert:nth-child(2) { animation-delay: 0.2s; }
+.alert:nth-child(3) { animation-delay: 0.3s; }
+        
+        .alert-header { display: flex; justify-content: space-between; align-items: center; }
+        .alert strong { text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; }
+        .alert span { font-size: 0.9rem; color: #fff; font-style: italic; }
+        .alert p { font-size: 0.8rem; color: var(--muted); margin-top: 5px; }
+
+        /* Colors based on threat type */
+        .alert.Urgency { border-left: 3px solid var(--danger); }
+        .alert.Urgency strong { color: var(--danger); }
+        
+        .alert.Fear { border-left: 3px solid var(--warning); }
+        .alert.Fear strong { color: var(--warning); }
+        
+        .alert.Authority { border-left: 3px solid var(--authority); }
+        .alert.Authority strong { color: var(--authority); }
+
+        .safe-badge {
+            text-align: center;
+            color: var(--safe);
+            padding: 1rem;
+            border: 1px dashed var(--safe);
+            border-radius: 12px;
+            background: rgba(112, 255, 176, 0.05);
+        }
+
+        @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+    <main class="card">
+        <h1>MindShield <span>Threat Matrix</span></h1>
+
+        <textarea id="inputText" placeholder="Paste suspicious email or text here to analyze..."></textarea>
+
+        <div class="cta">
+            <button id="scanBtn" class="primary">Scan Text</button>
+            <button id="scanPageBtn" class="secondary" style="border: 1px solid var(--accent); color: var(--accent);">Scan Page</button>
+        </div>
+
+        <div id="result">
+            </div>
+
+        <div style="margin-top: 20px; text-align: center; font-size: 0.7rem; color: var(--muted); opacity: 0.6;">
+            POWERED BY GEMINI AI • REAL-TIME PROTECTION
+        </div>
+    </main>
+
+    <script src="popup.js"></script>
+</body>
+</html>

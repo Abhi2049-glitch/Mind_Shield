@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "MindShield: Psychological Trigger Detector",
+  "version": "2.0",
+  "description": "Analyzes text for urgency, fear, and manipulation using AI.",
+  "permissions": ["activeTab", "scripting"],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ]
+}
