@@ -1,14 +1,14 @@
-// --- 🔑 GLOBAL API KEY (Accessible by everything) ---
+
 // PASTE YOUR KEY HERE ONCE.
 const API_KEY = "API_KEY_IS_HERE".trim(); 
 // ----------------------------------------------------
 
-// --- BUTTON 1: SCAN COPIED TEXT ---
+
 document.getElementById('scanBtn').addEventListener('click', async () => {
   const text = document.getElementById('inputText').value;
   const resultDiv = document.getElementById('result');
 
-  // Safety Check
+  
   if (API_KEY === "PASTE_YOUR_KEY_HERE" || API_KEY.length < 10) {
      resultDiv.innerHTML = `<div class="alert" style="border-color:var(--danger); color:var(--danger); text-align:center;">⚠️ Error: Paste API Key in Line 3.</div>`;
      return;
@@ -19,10 +19,10 @@ document.getElementById('scanBtn').addEventListener('click', async () => {
     return;
   }
 
-  // ✅ FIXED LINE: Uses the pulsating animation class
+  
   resultDiv.innerHTML = `<div class="scanning-text">⚡ SCANNING NEURAL PATTERNS...</div>`;
 
-  // Reuse the helper function to scan
+  
   await scanAndRender(text, resultDiv);
 });
 
@@ -147,4 +147,5 @@ function renderResults(data, container) {
     `;
     container.appendChild(div);
   });
+
 }
