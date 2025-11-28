@@ -2,7 +2,6 @@
 MindShield is an AI-powered Chrome Extension that acts as a "Cognitive Firewall" for your browser. Instead of just blocking bad URLs, it uses Google Gemini 2.0 to detect psychological manipulation—like Urgency, Fear, and False Authority—and highlights these triggers in real-time directly on the webpage.
 # 🛡️ MindShield: Cognitive Security for the AI Era
 
-> **Winner / Submission for [Insert Hackathon Name Here]**
 
 ## 🚨 The Problem
 Traditional antivirus software protects your *computer*, but nothing protects your *mind*. 
@@ -44,4 +43,4 @@ If it detects psychological manipulation, it:
 5.  Open any website (or the included `test_scam.html`) and click **"Scan Page"**.
 
 ---
-*Built with ❤️ and ☕ by [Your Name/Team Name]*
+*Built with ❤️ and ☕ by Abhinav Jha*
