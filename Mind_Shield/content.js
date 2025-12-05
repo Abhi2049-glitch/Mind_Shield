@@ -1,6 +1,5 @@
 console.log("MindShield: Content Script Loaded");
 
-// --- INJECT CUSTOM CSS FOR HIGHLIGHTS & TOASTS ---
 const style = document.createElement('style');
 style.textContent = `
   .mindshield-mark {
@@ -173,4 +172,5 @@ function showToast(message, color) {
 
 function escapeRegExp(string) {
   return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
 }
